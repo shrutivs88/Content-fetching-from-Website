@@ -12,9 +12,6 @@
           $res=mysqli_query($conn,$sql);
           $row=mysqli_fetch_object($res);
           $baseUrl= $row->base_url;
-
-        
-
             $curl = curl_init();
             //$search_string = "acherryontop.com";
             $url = "$baseUrl";
