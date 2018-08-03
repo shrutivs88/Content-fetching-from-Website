@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap.min.css" />
+   
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     </head>
@@ -25,45 +25,54 @@
         <script>
         $(document).ready(function(){
             getMerchants();
-    
+          
         });
+
         var str = []; 
         var res = [];
-        
-       // str.length = Math.pow(2,20)-1; //set array length less than 2 to the 32nd power 
-        //res.length = Math.pow(2,20)-1; 
-       // console.log(str.length);
-
-       // var str = "";
+        var pathArray = [];
+        var pathArray1 = [];
+     
         function getMerchants(){
-          // $a = $(".tile-name").text();
-         //  alert($a);
-        $('.tile-content div.tile-name').each(function(){
-         str += $(this).text() + ",";
-          
-           
             
+        $('.tile-content div.tile-name').each(function(){
+         str += $(this).text() + ","; 
         });
          res = str.split(",");
-       // alert(res[2968]);
-      //  alert(str);
-       
-        //alert(res[0]);
-          //  alert(res[1]);
-        $.ajax({
-            url:"m2.php",
-            type:"post",
-            data:{
-                result:res
-            },
-            success:function(response){
-               //console.log(response);
+      //   alert(res.length);
+
+         for(var i=0; i<(res.length-1); i++)
+            {
+            var href = document.getElementsByClassName("tile-name")[i].parentNode.parentNode.href;
+            var anchor = document.getElementsByClassName("tile-name")[i];
+            do{
+                anchor = anchor.parentNode;
+                //alert(anchor);
+                } while(anchor.nodeName.toLowerCase() != "a");
+                var href1 = anchor.href;  
+                //alert(href1);
+                pathArray = href1.replace("http://localhost/","https://www.coupondunia.in/stores/../");
+                pathArray1.push(pathArray);        
             }
 
-
-        });
-
-        }
+            $.ajax({
+                url:"m.php",
+                type:"post",
+                data:{
+                result1:res,
+                result2:pathArray1
+                },
+                success:function(data){
+             //   console.log(response);
+              //  alert(response);
+                    window.location.href="http://localhost/project2url_version_1/dbfetchxls.php";
+                
+                } 
+            });
+             
+          }
+         
+          
         
         </script>
     
